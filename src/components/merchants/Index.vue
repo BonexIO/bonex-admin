@@ -96,7 +96,9 @@
       this.$middleware.getMerchants()
         .then(r => {
           this.loading = false;
-          this.records = r
+          if (r != null) {
+            this.records = r
+          }
         })
         .catch(e => {
           console.log(e)
