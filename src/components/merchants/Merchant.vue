@@ -4,15 +4,9 @@
     <v-content>
       <v-container>
 
-          <h1 style="position: relative" class="display-2">Merchants
-          <router-link to="/merchants/add">
-            <v-btn color="pink" fab dark small>
-              <v-icon>add</v-icon>
-            </v-btn>
-          </router-link>
-            </h1>
+          <h1 style="position: relative" class="display-2">Merchant</h1>
         <v-divider class="mb-3"></v-divider>
-          <v-alert :value="success" type="success" class="mb-4">Please save this key: {{success}} and keep it secure</v-alert>
+         
           <div v-if="loading">    
             <v-progress-circular :width="3" color="green" indeterminate></v-progress-circular>
           </div>
@@ -40,14 +34,10 @@
           </template>
           <template slot="items" slot-scope="props">
             <tr :active="props.selected" @click="props.selected = !props.selected">
-              <td class="text-center">{{ props.item.created_at }}</td>
-              <td class="text-center">{{ props.item.title }}</td>
+              <td>{{ moment(props.item.created_at).format('MMMM Do YYYY, h:mm:ss a') }}</td>
               <td class="text-center">{{ props.item.pubkey }}</td>
-              <td class="text-center">{{ props.item.asset_code }}</td>
               <td>          
-                <router-link :to="link(props.item.pubkey, props.item.asset_code)">
-                  <v-btn color="green" dark small>Edit</v-btn>
-                </router-link>
+                  <v-btn color="green" small @click="airdrop(props.item.pubkey)">Airdrop</v-btn>
               </td>
             </tr>
           </template>
@@ -78,13 +68,10 @@
           align: 'left',
           value: 'created_at'
         },
-        { text: 'Title', value: 'title' },
         { text: 'Address', value: 'pubkey' },
-        { text: 'Asset', value: 'asset_code' },
         { test: 'Control'}
       ],
-      records: [],
-      success: false,
+      records: []
     }),
     methods: {
       changeSort (column) {
@@ -96,14 +83,27 @@
         }
       },
 
-      link (key, code) {
-        return "/merchant/" + key + "/" + code
+      airdrop (address) {
+        var secret = prompt("Enter merchant private key")
+        this.loading = true;
+
+        return Promise.resolve()
+        .then(() => {
+          return this.$middleware.airdrop(address, this.$route.params.asset,secret)
+        })
+        .then(() => {
+          this.loading = false;
+          alert("Airdrop success!")
+        })
+        .catch((e) => {
+          console.log(e)
+          alert("Airdrop error!")
+          this.loading = false;
+        })
       }
     },
     mounted : function() {
-      this.success = this.$route.query.success;
-
-      this.$middleware.getMerchants()
+      this.$middleware.getSubscribers(this.$route.params.key)
         .then(r => {
           this.loading = false;
           if (r != null) {
