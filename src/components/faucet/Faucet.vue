@@ -47,10 +47,7 @@
         this.loading = true;
 
         if (this.$refs.form.validate()) {
-          this.$middleware.requestFromFaucet({
-            address: this.address,
-            amount: this.amount,
-          })
+          this.$middleware.requestFromFaucet(this.address, this.amount)
           .then((resp) => {
             // stop spinner
             this.loading = false;

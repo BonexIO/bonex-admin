@@ -69,8 +69,12 @@ const Middleware = {
                 })
             },
 
-            requestFromFaucet: function(data) {
-              return axios.post("/faucet/request", data).then(resp => {
+            requestFromFaucet: function(address, amount) {
+              return axios.get("/faucet/"+address, {
+                params: {
+                  amount
+                }
+              }).then(resp => {
                 return resp.data
               })
             },
