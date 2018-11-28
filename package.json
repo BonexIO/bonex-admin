@@ -11,10 +11,10 @@
     "@babel/polyfill": "^7.0.0-rc.1",
     "axios": "^0.18.0",
     "moment": "^2.22.2",
+    "stellar-sdk": "https://github.com/BonexIO/js-stellar-sdk.git",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.2.0",
-    "stellar-sdk": "https://github.com/BonexIO/js-stellar-sdk.git"
+    "vuetify": "^1.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.3",

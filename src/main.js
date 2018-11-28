@@ -6,6 +6,7 @@ import App from './App.vue'
 
 import Dashboard from './components/Dashboard'
 import Merchants from './components/merchants/Index'
+import Faucet from './components/faucet/Faucet'
 import Merchant from './components/merchants/Merchant'
 import MerchantsAdd from './components/merchants/Add'
 
@@ -23,6 +24,8 @@ var router = new VueRouter({
     { path: '/merchants', component: Merchants},
     { path: '/merchants/add', component: MerchantsAdd },
     { path: '/merchant/:key/:asset', component: Merchant },
+
+    { path: '/faucet', component: Faucet},
   ],
   mode: 'history'
 })

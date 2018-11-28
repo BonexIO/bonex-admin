@@ -70,6 +70,7 @@
       items: [
         { icon: 'settings', text: 'Dashboard', path: '/'},
         { icon: 'account_box', text: 'Merchants', path: '/merchants'},
+        { icon: 'attach_money', text: 'Faucet', path: '/faucet'},
         { icon: 'help', text: 'Help', path: '/'},
         { divider: true },
         { icon: 'exit_to_app', text: 'Logout', path: '/'},

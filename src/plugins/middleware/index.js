@@ -6,6 +6,9 @@ const Middleware = {
     install(Vue) {
         const axios = Axios.create({
             baseURL: Config.middlewareHost,
+              headers: {
+                'Content-Type': 'application/json'
+              }
         });
 
         StellarSdk.Config.setAllowHttp(true);
@@ -64,7 +67,13 @@ const Middleware = {
                 return axios.get("/subscribers/" + pubkey).then(resp => {
                     return resp.data
                 })
-            }
+            },
+
+            requestFromFaucet: function(data) {
+              return axios.post("/faucet/request", data).then(resp => {
+                return resp.data
+              })
+            },
         }
     }
 };
